@@ -1,0 +1,1 @@
+If you are unable to run Redis/Docker, install Memurai from https://www.memurai.com/get-memurai
