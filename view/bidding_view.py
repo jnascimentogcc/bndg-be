@@ -49,9 +49,9 @@ def get_all_bidding():
             "reference": bidding["reference"],
             "procedure_program_file": bidding["procedure_program_file"],
             "notebook_charge_file": bidding["notebook_charge_file"],
-            "created_at": bidding["created_at"].strftime("%d/%m/%Y"),
+            "created_at": bidding["created_at"].strftime("%d/%m/%Y") if bidding["created_at"] else None,
             "evaluated": bidding["evaluated"],
-            "evaluated_at": bidding["evaluated_at"],
+            "evaluated_at": bidding["evaluated_at"].strftime("%d/%m/%Y") if bidding["evaluated_at"] else None,
         })
     response_helper.set_data(arr_bidding)
     return response_helper.get_response()
@@ -88,4 +88,6 @@ def rational_bidding(id_bidding):
     response_helper = ResponseHelper()
     service_async = ServiceAsync()
     service_async.produce_bidding_rational(id_bidding)
+    dao = MysqlDao()
+    dao.update_status_bid(id_bidding)
     return response_helper.get_response()

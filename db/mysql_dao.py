@@ -59,3 +59,10 @@ class MysqlDao(Dao):
             sql = "SELECT * FROM candidate WHERE profile_id = (%s)"
             cursor.execute(sql, (id_profile,))
             return cursor.fetchall()
+
+    def update_status_bid(self, id_bid):
+        with self.db.cursor() as cursor:
+            sql = "UPDATE bidding SET evaluated = 1 WHERE id = (%s)"
+            val = id_bid
+            cursor.execute(sql, val)
+            self.db.commit()
