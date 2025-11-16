@@ -63,6 +63,5 @@ class MysqlDao(Dao):
     def update_status_bid(self, id_bid):
         with self.db.cursor() as cursor:
             sql = "UPDATE bidding SET evaluated = 1 WHERE id = (%s)"
-            val = id_bid
-            cursor.execute(sql, val)
+            cursor.execute(sql, (id_bid,))
             self.db.commit()
