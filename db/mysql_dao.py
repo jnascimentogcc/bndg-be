@@ -8,8 +8,8 @@ format_dt = '%Y-%m-%d %H:%M:%S'
 class MysqlDao(Dao):
     def add_resume(self, _id, filename):
         with self.db.cursor() as cursor:
-            sql = "INSERT INTO resume (id, filename, created_at) VALUES (%s, %s, %s)"
-            val = (_id, filename, datetime.now().strftime(format_dt))
+            sql = "INSERT INTO resume (id, filename, extracted, created_at) VALUES (%s, %s, %s, %s)"
+            val = (_id, filename, 'N', datetime.now().strftime(format_dt))
             cursor.execute(sql, val)
             self.db.commit()
 
@@ -36,7 +36,7 @@ class MysqlDao(Dao):
 
     def get_all_project(self):
         with self.db.cursor(dictionary=True) as cursor:
-            sql = "SELECT * FROM project ORDER BY customer_name, title LIMIT 20"
+            sql = "SELECT * FROM project ORDER BY customer_name, title"
             cursor.execute(sql)
             return cursor.fetchall()
 
